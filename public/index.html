@@ -73,6 +73,10 @@
                     <span class="btn-icon">📂</span>
                     新建文件夹
                 </button>
+                <button id="webdavBtn" class="btn btn-info">
+                    <span class="btn-icon">🌐</span>
+                    WebDAV
+                </button>
             </div>
             <div class="toolbar-right">
                 <button id="refreshBtn" class="btn btn-outline">
@@ -175,6 +179,81 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('deleteModal')">取消</button>
                 <button id="confirmDelete" class="btn btn-danger">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- WebDAV 状态模态框 -->
+    <div id="webdavModal" class="modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>WebDAV 服务状态</h3>
+                <button class="modal-close" onclick="closeModal('webdavModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="webdav-status">
+                    <div class="status-item">
+                        <div class="status-label">服务状态</div>
+                        <div class="status-value">
+                            <span id="webdavStatus" class="status-indicator">检查中...</span>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">WebDAV 地址</div>
+                        <div class="status-value">
+                            <code id="webdavUrl">-</code>
+                            <button id="copyWebdavUrl" class="btn btn-small btn-outline">复制</button>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">认证方式</div>
+                        <div class="status-value">Basic Auth (用户名/密码)</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">支持的操作</div>
+                        <div class="status-value">
+                            <div class="feature-list">
+                                <span class="feature-item">📁 目录浏览</span>
+                                <span class="feature-item">📂 创建文件夹</span>
+                                <span class="feature-item">📄 文件上传</span>
+                                <span class="feature-item">📥 文件下载</span>
+                                <span class="feature-item">🗑️ 删除操作</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="webdav-help">
+                    <h4>如何使用 WebDAV</h4>
+                    <div class="help-section">
+                        <h5>Windows 文件资源管理器</h5>
+                        <ol>
+                            <li>打开文件资源管理器</li>
+                            <li>右键点击"此电脑" → "映射网络驱动器"</li>
+                            <li>输入 WebDAV 地址</li>
+                            <li>输入用户名和密码</li>
+                        </ol>
+                    </div>
+
+                    <div class="help-section">
+                        <h5>macOS Finder</h5>
+                        <ol>
+                            <li>打开 Finder</li>
+                            <li>按 Cmd+K 或选择"前往" → "连接服务器"</li>
+                            <li>输入 WebDAV 地址</li>
+                            <li>输入用户名和密码</li>
+                        </ol>
+                    </div>
+
+                    <div class="help-section">
+                        <h5>第三方客户端</h5>
+                        <p>推荐使用：WinSCP、Cyberduck、rclone 等支持 WebDAV 的客户端</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('webdavModal')">关闭</button>
+                <button id="testWebdav" class="btn btn-primary">测试连接</button>
             </div>
         </div>
     </div>

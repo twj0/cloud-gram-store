@@ -3,6 +3,7 @@ import { AuthService } from './services/auth.js';
 import { DatabaseService } from './services/database.js';
 import { FileService } from './services/file.js';
 import { TelegramService } from './services/telegram.js';
+import { WebDAVService } from './services/webdav.js'; // Import WebDAVService
 import { Router } from './utils/router.js';
 import { corsHeaders, jsonResponse, errorResponse } from './utils/response.js';
 
@@ -28,6 +29,14 @@ export default {
       const auth = new AuthService(env);
       const telegram = new TelegramService(env.TELEGRAM_BOT_TOKEN, env.TELEGRAM_CHAT_ID);
       const fileService = new FileService(db, telegram);
+      const webDAVService = new WebDAVService(db, fileService, auth); // Instantiate WebDAVService
+
+      // Handle WebDAV requests before standard routing
+      const url = new URL(request.url);
+      if (url.pathname.startsWith('/webdav')) {
+        console.log(`[REQUEST] ${requestId} - WebDAV 请求 - 交由 WebDAVService 处理`);
+        return await webDAVService.handle(request);
+      }
 
       // 创建路由器
       const router = new Router();

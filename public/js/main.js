@@ -6,6 +6,7 @@ import { FileManager } from './modules/fileManager.js';
 import { UIManager } from './modules/uiManager.js';
 import { ApiClient } from './modules/apiClient.js';
 import { NotificationManager } from './modules/notification.js';
+import { WebDAVManager } from './modules/webdav.js';
 
 /**
  * 应用主类
@@ -17,6 +18,7 @@ class CloudGramApp {
         this.fileManager = new FileManager(this.apiClient);
         this.uiManager = new UIManager();
         this.notification = new NotificationManager();
+        this.webdavManager = new WebDAVManager(this.apiClient);
 
         this.currentFolderId = null;
         this.breadcrumbPath = [];
@@ -153,6 +155,9 @@ class CloudGramApp {
         // 显示用户信息
         const userInfo = await this.authManager.getUserInfo();
         document.getElementById('currentUser').textContent = userInfo.username;
+
+        // 初始化 WebDAV 管理器
+        this.webdavManager.init();
 
         // 加载根目录内容
         await this.loadDirectory(null);

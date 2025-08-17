@@ -1016,3 +1016,136 @@ body {
     color: #666;
     font-size: 14px;
 }
+
+/* WebDAV 相关样式 */
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+    border: 1px solid #17a2b8;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+.modal-large {
+    max-width: 800px;
+    width: 90%;
+}
+
+.webdav-status {
+    margin-bottom: 2rem;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.status-item:last-child {
+    border-bottom: none;
+}
+
+.status-label {
+    font-weight: 600;
+    color: #333;
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+.status-value {
+    flex: 1;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.status-indicator {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-indicator.online {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-indicator.offline {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-indicator.checking {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.feature-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.feature-item {
+    background-color: #f8f9fa;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    border: 1px solid #dee2e6;
+}
+
+.webdav-help {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.webdav-help h4 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.help-section {
+    margin-bottom: 1.5rem;
+}
+
+.help-section:last-child {
+    margin-bottom: 0;
+}
+
+.help-section h5 {
+    color: #495057;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.help-section ol {
+    margin-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.help-section li {
+    margin-bottom: 0.25rem;
+    color: #666;
+}
+
+.help-section p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.btn-small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}

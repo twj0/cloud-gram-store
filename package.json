@@ -9,6 +9,8 @@
 		"db:init": "wrangler d1 execute cloud-gram-store --file=./schema.sql"
 	},
 	"devDependencies": {
-		"wrangler": "^4.21.2"
+		"wrangler": "^4.30.0"
+	},
+	"dependencies": {
 	}
 }
