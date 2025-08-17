@@ -167,4 +167,32 @@ npx wrangler deploy
 
 ---
 
+## 二次开发说明
+
+遇到并解决了一些问题，具体如下：
+
+### 遇到的问题及解决方案
+
+1.  **静态资源 404**：
+    *   **问题**：本地开发时，`/css/antd@5.12.8/dist/reset.css` 文件 404。
+    *   **解决方案**：将 `index.html` 中的 CSS 引用从本地路径改回 CDN。
+
+2.  **数据库查询失败**：
+    *   **问题**：获取根目录内容时，`DatabaseService.getFoldersByParent` 函数报错。
+    *   **解决方案**：修改 `database.js` 文件中的 `getFoldersByParent` 和 `getFilesByFolder` 函数，当 `parentId` 或 `folderId` 为 `null` 时，不使用 `bind` 方法。
+
+3.  **数据库表不存在**：
+    *   **问题**：`wrangler dev` 启动后，API 返回 `Error: D1_ERROR: no such table: folders: SQLITE_ERROR`。
+    *   **解决方案**：在 `package.json` 中添加 `db:init` 脚本，用于执行 `schema.sql` 文件，初始化数据库。
+
+4.  **Telegram API 上传失败**：
+    *   **问题**：在中国大陆环境下，由于网络问题，上传文件到 Telegram 时，API 返回 `internal error`。
+    *   **解决方案**：开启 v2ray或者 clash 的 TUN 模式 或者 “虚拟网卡” 等方式，解决网络问题。同时，在 `telegram.js` 的 `uploadChunk` 函数中添加了更详细的错误日志，以便更好地排查问题。
+
+### 致谢
+
+非常感谢原作者的辛勤付出
+
+---
+
 <p align="center">使用 ❤️ 和 ☕ 构建</p>

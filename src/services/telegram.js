@@ -206,8 +206,9 @@ export class TelegramService {
       });
 
       if (!response.ok) {
-        console.error(`[TELEGRAM] [ERROR] Telegram API 响应错误: ${response.status} ${response.statusText}`);
-        throw new Error(`Telegram API HTTP error: ${response.status} ${response.statusText}`);
+        const errorText = await response.text();
+        console.error(`[TELEGRAM] [ERROR] Telegram API 响应错误: ${response.status} ${response.statusText}`, errorText);
+        throw new Error(`Telegram API HTTP error: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
       const result = await response.json();
