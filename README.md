@@ -45,7 +45,7 @@ CloudGramStore 是一个基于 Cloudflare Workers 和 Telegram Bot API 的云文
 1. **克隆仓库**
 
    ```sh
-   git clone https://github.com/yourusername/cloud-gram-store.git
+   git clone https://github.com/twj0/cloud-gram-store.git
    cd cloud-gram-store
    ```
 
