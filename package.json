@@ -5,7 +5,8 @@
 	"scripts": {
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
-		"start": "wrangler dev"
+		"start": "wrangler dev",
+		"db:init": "wrangler d1 execute cloud-gram-store --file=./schema.sql"
 	},
 	"devDependencies": {
 		"wrangler": "^4.21.2"

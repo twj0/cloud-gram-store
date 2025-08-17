@@ -22,8 +22,9 @@ export class DatabaseService {
         ? 'SELECT * FROM folders WHERE parent_id = ? ORDER BY name ASC'
         : 'SELECT * FROM folders WHERE parent_id IS NULL ORDER BY name ASC';
 
-      const params = parentId ? [parentId] : [];
-      const result = await this.db.prepare(query).bind(...params).all();
+      const result = parentId
+        ? await this.db.prepare(query).bind(parentId).all()
+        : await this.db.prepare(query).all();
       return result.results || [];
     } catch (error) {
       console.error('Error getting folders by parent:', error);
@@ -59,8 +60,9 @@ export class DatabaseService {
         ? 'SELECT id FROM folders WHERE name = ? AND parent_id = ?'
         : 'SELECT id FROM folders WHERE name = ? AND parent_id IS NULL';
 
-      const existingParams = parentId ? [name, parentId] : [name];
-      const existing = await this.db.prepare(existingQuery).bind(...existingParams).first();
+      const existing = parentId
+        ? await this.db.prepare(existingQuery).bind(name, parentId).first()
+        : await this.db.prepare(existingQuery).bind(name).first();
 
       if (existing) {
         throw new Error('Folder with the same name already exists');
@@ -147,8 +149,9 @@ export class DatabaseService {
         ? 'SELECT * FROM files WHERE folder_id = ? ORDER BY name ASC'
         : 'SELECT * FROM files WHERE folder_id IS NULL ORDER BY name ASC';
 
-      const params = folderId ? [folderId] : [];
-      const result = await this.db.prepare(query).bind(...params).all();
+      const result = folderId
+        ? await this.db.prepare(query).bind(folderId).all()
+        : await this.db.prepare(query).all();
       return result.results || [];
     } catch (error) {
       console.error('Error getting files by folder:', error);
@@ -186,8 +189,9 @@ export class DatabaseService {
         ? 'SELECT id FROM files WHERE name = ? AND folder_id = ?'
         : 'SELECT id FROM files WHERE name = ? AND folder_id IS NULL';
 
-      const existingParams = folderId ? [name, folderId] : [name];
-      const existing = await this.db.prepare(existingQuery).bind(...existingParams).first();
+      const existing = folderId
+        ? await this.db.prepare(existingQuery).bind(name, folderId).first()
+        : await this.db.prepare(existingQuery).bind(name).first();
 
       if (existing) {
         throw new Error('File with the same name already exists');
