@@ -2,8 +2,9 @@
 // 负责文件和文件夹的操作管理
 
 export class FileManager {
-    constructor(apiClient) {
+    constructor(apiClient, uiManager) {
         this.apiClient = apiClient;
+        this.uiManager = uiManager;
     }
 
     /**
@@ -436,6 +437,25 @@ export class FileManager {
 
                 throw newError;
             }
+        }
+    }
+
+    /**
+     * 分享文件
+     * @param {string} fileId - 文件ID
+     * @param {string} fileName - 文件名
+     */
+    async shareFile(fileId, fileName) {
+        try {
+            this.uiManager.showLoading('正在创建分享链接...');
+            const result = await this.apiClient.createShareLink(fileId);
+            this.uiManager.hideLoading();
+            this.uiManager.showShareLinkModal(result.shareUrl);
+        } catch (error) {
+            this.uiManager.hideLoading();
+            console.error(`创建分享链接失败: ${fileName}`, error);
+            // this.notification is not available here, handle error in main.js
+            throw new Error(`创建分享链接失败: ${error.message}`);
         }
     }
 

@@ -416,4 +416,66 @@ export class DatabaseService {
       throw error;
     }
   }
+
+  // ================== 分享链接操作 ==================
+
+  /**
+   * 创建或获取文件的分享链接
+   * @param {number} fileId - 文件ID
+   * @returns {Object} 分享链接信息
+   */
+  async createShareLink(fileId) {
+    try {
+      // 检查文件是否存在
+      const file = await this.getFileById(fileId);
+      if (!file) {
+        throw new Error('File not found');
+      }
+
+      // 检查是否已存在该文件的分享链接
+      let link = await this.db.prepare('SELECT * FROM share_links WHERE file_id = ?').bind(fileId).first();
+      if (link) {
+        return link;
+      }
+
+      // 生成一个唯一的随机令牌
+      const token = crypto.randomUUID();
+
+      // 创建新的分享链接
+      const insertQuery = 'INSERT INTO share_links (token, file_id) VALUES (?, ?) RETURNING *';
+      link = await this.db.prepare(insertQuery).bind(token, fileId).first();
+
+      return link;
+    } catch (error) {
+      console.error('Error creating share link:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * 根据令牌获取分享链接和文件信息
+   * @param {string} token - 分享令牌
+   * @returns {Object|null} 包含链接和文件信息的对象
+   */
+  async getShareLinkByToken(token) {
+    try {
+      const query = `
+        SELECT
+          sl.token,
+          sl.created_at,
+          f.id as file_id,
+          f.name as file_name,
+          f.size as file_size,
+          f.mime_type as file_mime_type
+        FROM share_links sl
+        JOIN files f ON sl.file_id = f.id
+        WHERE sl.token = ?
+      `;
+      const result = await this.db.prepare(query).bind(token).first();
+      return result || null;
+    } catch (error) {
+      console.error('Error getting share link by token:', error);
+      throw new Error('Failed to get share link');
+    }
+  }
 }

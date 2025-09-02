@@ -267,6 +267,39 @@ export default {
         return jsonResponse({ success: true });
       });
 
+      // 分享链接操作
+      router.post('/api/files/:id/share', async (request, params) => {
+        const token = auth.extractToken(request);
+        if (!auth.verifyToken(token)) {
+          return errorResponse('Unauthorized', 401);
+        }
+
+        const link = await db.createShareLink(params.id);
+        const shareUrl = `${url.origin}/api/share/${link.token}`;
+        
+        return jsonResponse({ ...link, shareUrl });
+      });
+
+      router.get('/api/share/:token', async (request, params) => {
+        const linkInfo = await db.getShareLinkByToken(params.token);
+        if (!linkInfo) {
+          return errorResponse('Share link not found or expired', 404);
+        }
+
+        const fileData = await fileService.downloadFile(linkInfo.file_id);
+        if (!fileData) {
+          return errorResponse('File not found', 404);
+        }
+
+        return new Response(fileData.data, {
+          headers: {
+            'Content-Type': fileData.mimeType || 'application/octet-stream',
+            'Content-Disposition': `attachment; filename="${fileData.name}"`,
+            ...corsHeaders
+          }
+        });
+      });
+
       // 处理路由
       console.log(`[REQUEST] ${requestId} - 开始路由处理`);
       const response = await router.handle(request);

@@ -14,10 +14,10 @@ import { WebDAVManager } from './modules/webdav.js';
 class CloudGramApp {
     constructor() {
         this.apiClient = new ApiClient();
-        this.authManager = new AuthManager(this.apiClient);
-        this.fileManager = new FileManager(this.apiClient);
         this.uiManager = new UIManager();
         this.notification = new NotificationManager();
+        this.authManager = new AuthManager(this.apiClient);
+        this.fileManager = new FileManager(this.apiClient, this.uiManager);
         this.webdavManager = new WebDAVManager(this.apiClient);
 
         this.currentFolderId = null;
@@ -469,6 +469,19 @@ class CloudGramApp {
     }
 
     /**
+     * 分享文件
+     * @param {string} fileId - 文件ID
+     * @param {string} fileName - 文件名
+     */
+    async shareFile(fileId, fileName) {
+        try {
+            await this.fileManager.shareFile(fileId, fileName);
+        } catch (error) {
+            this.notification.error('分享失败', error.message);
+        }
+    }
+
+    /**
      * 加载目录内容
      * @param {string|null} folderId - 文件夹ID，null表示根目录
      */
@@ -633,6 +646,7 @@ class CloudGramApp {
             </div>
             <div class="file-actions">
                 <button class="action-btn action-btn-primary" onclick="app.downloadFile(${file.id}, '${this.escapeHtml(file.name)}')">下载</button>
+                <button class="action-btn" onclick="app.shareFile(${file.id}, '${this.escapeHtml(file.name)}')">分享</button>
                 <button class="action-btn action-btn-secondary" onclick="app.renameItem('file', ${file.id}, '${this.escapeHtml(file.name)}')">重命名</button>
                 <button class="action-btn action-btn-danger" onclick="app.deleteItem('file', ${file.id}, '${this.escapeHtml(file.name)}')">删除</button>
             </div>

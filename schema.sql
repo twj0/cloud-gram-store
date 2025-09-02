@@ -49,6 +49,15 @@ CREATE TABLE IF NOT EXISTS temp_chunks (
     UNIQUE(upload_id, chunk_index)
 );
 
+-- 分享链接表
+CREATE TABLE IF NOT EXISTS share_links (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    token TEXT NOT NULL UNIQUE,
+    file_id INTEGER NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(file_id) REFERENCES files(id) ON DELETE CASCADE
+);
+
 -- 创建索引以提高查询性能
 CREATE INDEX IF NOT EXISTS idx_folders_parent_id ON folders(parent_id);
 CREATE INDEX IF NOT EXISTS idx_files_folder_id ON files(folder_id);
@@ -56,6 +65,8 @@ CREATE INDEX IF NOT EXISTS idx_file_chunks_file_id ON file_chunks(file_id);
 CREATE INDEX IF NOT EXISTS idx_file_chunks_telegram_file_id ON file_chunks(telegram_file_id);
 CREATE INDEX IF NOT EXISTS idx_temp_chunks_upload_id ON temp_chunks(upload_id);
 CREATE INDEX IF NOT EXISTS idx_temp_chunks_created_at ON temp_chunks(created_at);
+CREATE INDEX IF NOT EXISTS idx_share_links_token ON share_links(token);
+CREATE INDEX IF NOT EXISTS idx_share_links_file_id ON share_links(file_id);
 
 -- 插入根目录（仅在不存在时插入）
 INSERT OR IGNORE INTO folders (id, name, parent_id) VALUES (1, 'Root', NULL);

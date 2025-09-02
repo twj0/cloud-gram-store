@@ -451,6 +451,61 @@ export class UIManager {
             loadingMask.style.display = 'none';
         }
     }
+
+    /**
+     * 显示分享链接模态框
+     */
+    showShareLinkModal(shareUrl) {
+        // 移除已存在的模态框
+        const existingModal = document.getElementById('shareLinkModal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+
+        const modal = document.createElement('div');
+        modal.id = 'shareLinkModal';
+        modal.className = 'modal';
+        modal.style.display = 'flex';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>分享文件</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>任何人都可以通过以下链接下载文件：</p>
+                    <div class="share-link-container">
+                        <input type="text" id="shareLinkInput" value="${shareUrl}" readonly>
+                        <button id="copyShareLinkBtn" class="btn">复制</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        const closeModal = () => {
+            modal.style.display = 'none';
+            modal.remove();
+        };
+
+        modal.querySelector('.close-btn').addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        modal.querySelector('#copyShareLinkBtn').addEventListener('click', async (e) => {
+            const button = e.currentTarget;
+            const input = document.getElementById('shareLinkInput');
+            await this.copyToClipboard(input.value);
+            button.textContent = '已复制!';
+            setTimeout(() => {
+                button.textContent = '复制';
+            }, 2000);
+        });
+    }
 }
 
 /* 在全局样式中添加：

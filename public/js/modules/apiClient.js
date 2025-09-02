@@ -482,6 +482,13 @@ export class ApiClient {
         return this.get(`/api/folders/${folderId}`);
     }
 
+    /**
+     * 创建分享链接
+     */
+    async createShareLink(fileId) {
+        return this.post(`/api/files/${fileId}/share`);
+    }
+
     // ========== 工具方法 ==========
 
     /**
