@@ -146,9 +146,24 @@ export class WebDAVService {
         }
 
         try {
+            console.log('[WebDAV Auth] Received Authorization header:', authHeader);
             const base64Credentials = authHeader.substring(6);
             const credentials = atob(base64Credentials);
+            console.log('[WebDAV Auth] Decoded credentials string:', credentials);
+            
             const [username, password] = credentials.split(':');
+
+            // --- 调试日志开始 ---
+            // 警告：这些日志会暴露敏感信息，调试结束后请务必移除！
+            console.log(`[WebDAV Auth] Username from client: "${username}"`);
+            console.log(`[WebDAV Auth] Password from client: "${password}"`);
+            
+            // 从 authService 获取环境变量中的期望值
+            const expectedUsername = this.authService.adminUsername;
+            const expectedPassword = this.authService.adminPassword;
+            console.log(`[WebDAV Auth] Expected username from env: "${expectedUsername}"`);
+            console.log(`[WebDAV Auth] Expected password from env: "${expectedPassword}"`);
+            // --- 调试日志结束 ---
 
             const loginResult = await this.authService.login(username, password);
             return loginResult.success ? loginResult : null;
