@@ -3,13 +3,15 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
+		"build": "tsc src/index.ts --outDir dist --target es2020 --module esnext --moduleResolution node --lib es2020 --allowJs --noEmit --strict --esModuleInterop --skipLibCheck --forceConsistentCasingInFileNames --resolveJsonModule",
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"db:init": "wrangler d1 execute cloud-gram-store --file=./schema.sql"
 	},
 	"devDependencies": {
-		"wrangler": "^4.30.0"
+		"wrangler": "^4.30.0",
+		"typescript": "^5.0.0"
 	},
 	"dependencies": {
 	}
