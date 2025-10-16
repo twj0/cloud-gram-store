@@ -3,7 +3,7 @@
 	"name": "cloud-gram-store",
 	"main": "src/index.js",
 	"compatibility_date": "2025-06-20",
-	"compatibility_flags": ["nodejs_compat", "es_modules"],
+	"compatibility_flags": ["nodejs_compat"],
 	"assets": {
 		"directory": "./public"
 	},
