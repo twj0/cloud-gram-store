@@ -19,6 +19,7 @@ CloudGramStore 是一个基于 Cloudflare Workers 和 Telegram Bot API 的云文
   - 文件下载、预览
   - 文件重命名和删除
   - 大文件分片处理（突破 Telegram 单文件限制）
+  - **文件分享**：生成永久公开下载链接，无需登录即可访问
 - **文件夹管理**：
   - 多级文件夹创建和导航
   - 面包屑路径导航

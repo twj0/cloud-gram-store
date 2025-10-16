@@ -1149,3 +1149,82 @@ body {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
 }
+
+/* Share Link Modal Styles */
+.share-link-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    align-items: stretch;
+}
+
+.share-link-container input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 2px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-family: 'Courier New', monospace;
+    background-color: #f8f9fa;
+}
+
+.share-link-container input:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: #fff;
+}
+
+.share-link-container .btn {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.share-link-container .btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.share-link-container .btn:active {
+    transform: translateY(0);
+}
+
+#shareLinkModal .modal-body p {
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+#shareLinkModal .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#shareLinkModal .close-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Animation for spin */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
