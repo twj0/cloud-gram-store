@@ -170,7 +170,6 @@ dist
 
 .dev.vars
 .wrangler/
-wrangler.jsonc
 docs/development-notes.md
 docs/webdav-development.md
 CloudGramStore技术架构解析.md

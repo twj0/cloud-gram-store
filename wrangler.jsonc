@@ -1,0 +1,26 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "cloud-gram-store",
+	"main": "src/index.js",
+	"compatibility_date": "2025-06-20",
+	"compatibility_flags": ["nodejs_compat", "es_modules"],
+	"assets": {
+		"directory": "./public"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "cloud-gram-store",
+			"database_id": "80e1abf4-0a6d-4eac-b32a-b5da56a55ffc"
+		}
+	],
+	"vars": {
+		"ADMIN_USERNAME": "admin",
+		"JWT_SECRET": "123456",
+		"TELEGRAM_BOT_TOKEN": "7908464945:AAEbV9G3wche9j1wLTj-DVLttmIc_s9BNmk",
+		"TELEGRAM_CHAT_ID": "-1002924316575"
+	},
+	"observability": {
+		"enabled": true
+	}
+}
